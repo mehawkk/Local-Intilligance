@@ -1,0 +1,5 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1024' height='1024' viewBox='0 0 1024 1024'>
+    <rect width='1024' height='1024' rx='180' fill='#1e40af'/>
+    <text x='512' y='580' font-family='Arial,sans-serif' font-size='500' font-weight='bold' fill='white' text-anchor='middle'>LF</text>
+    <text x='512' y='800' font-family='Arial,sans-serif' font-size='160' fill='#93c5fd' text-anchor='middle'>INTEL</text>
+  </svg>

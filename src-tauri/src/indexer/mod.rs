@@ -19,6 +19,10 @@ pub fn run_full_scan(
     root_path: &str,
     exclusions: &[String],
 ) {
+    let scan_started_at = chrono::Utc::now()
+        .format("%Y-%m-%d %H:%M:%S")
+        .to_string();
+
     // Set status to running
     {
         let mut status = index_status.lock().unwrap();
@@ -208,8 +212,11 @@ pub fn run_full_scan(
     {
         let db = conn.lock().unwrap();
         let _ = db.execute(
-            "UPDATE files SET is_deleted = 1 WHERE root_id = ?1 AND last_seen_at < datetime('now', '-1 minute')",
-            [root_id],
+            "UPDATE files
+             SET is_deleted = 1
+             WHERE root_id = ?1
+               AND (last_seen_at IS NULL OR last_seen_at < ?2)",
+            rusqlite::params![root_id, scan_started_at],
         );
         // Remove FTS entries for deleted files
         let _ = db.execute(
